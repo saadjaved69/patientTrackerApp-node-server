@@ -19,6 +19,5 @@
   },
   "devDependencies": {
     "env-cmd": "^10.0.1"
-    
   }
 }
