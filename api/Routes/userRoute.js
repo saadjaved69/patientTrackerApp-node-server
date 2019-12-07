@@ -52,9 +52,14 @@ route.post('/logout' , auth , async (req , res) => {
   
 
 route.delete('/delete-user/:id' , async (req , res) => {
-     const _id = req.params.id 
-     const user = await Register.findByIdAndDelete(_id)
-     res.send(user) 
+   try{
+      const _id = req.params.id 
+      const user = await Register.findByIdAndDelete(_id)
+      res.send(user) 
+
+   } catch(error){
+        console.log(error)
+   }
 })  
 
 
@@ -82,12 +87,17 @@ route.get("/profiles/myprofile", auth , async (req, res) => {
 
 
 route.get('/user/:id' , async (req , res) => {
-     
+   
+  try{
     const _id = req.params.id
     
     const user = await Register.findById(_id)
     
     res.send(user)
+
+  }catch(error){
+       console.log("Error " , error)
+  }
      
 
 })
