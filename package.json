@@ -17,5 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.12",
     "nodemon": "^2.0.1"
+  },
+  "devDependencies": {
+    "env-cmd": "^9.0.3"
   }
 }
