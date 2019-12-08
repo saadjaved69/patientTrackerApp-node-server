@@ -28,16 +28,6 @@ const signupSchema = new mongoose.Schema({
 } )
 
 
-signupSchema.pre('remove' , async function(next) {
-  const profile = this;
-
-  await PostJob.deleteMany({
-     user : profile._id
-  })
-
-  next();
-
-});
 
 
 signupSchema.methods.generateAuthToken = async function (){
