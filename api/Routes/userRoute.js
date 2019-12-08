@@ -4,8 +4,13 @@ const Register = require('../model/userModel')
 const auth = require('../middleware/auth')
 
 route.get('/users' , async (req , res) => {
+   try{
      const Data = await Register.find({})
-     res.send(Data)
+     res.status(200).send(Data)
+   }catch(error){
+     res.status(500).json({error})
+      
+   } 
 })
 
 
@@ -18,7 +23,8 @@ route.post('/signup' ,  async (req , res) => {
      res.status(201).send({profile , token})
      
   } catch(error){
-     console.error(error) 
+     res.status(500).json({error})
+
   }
 })
 
@@ -28,28 +34,14 @@ route.post('/login'  , async (req , res) => {
      const token = await profile.generateAuthToken()
      res.status(200).send({ profile , token})
     }catch(error){
-      console.log(error)   
+      res.status(500).json({error})
+
    }
 
 })
 
 
-route.post('/logout' , auth , async (req , res) => {
 
-    try {
-     
-     const { profile , token } = req
- 
-     profile.tokens = profile.tokens.filter((t ) => t.token !== token )
-     await profile.save()
-     res.send()
- 
-    }catch (e){
-       res.status(400).send()
-    } 
- 
-  })
-  
 
 route.delete('/delete-user/:id' , async (req , res) => {
    try{
@@ -58,7 +50,8 @@ route.delete('/delete-user/:id' , async (req , res) => {
       res.send(user) 
 
    } catch(error){
-        console.log(error)
+        res.status(500).json({error})
+
    }
 })  
 
@@ -96,7 +89,9 @@ route.get('/user/:id' , async (req , res) => {
     res.send(user)
 
   }catch(error){
-       console.log("Error " , error)
+       res.status(500).json({error})
+
+
   }
      
 
